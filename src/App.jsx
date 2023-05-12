@@ -5,6 +5,7 @@ import SetupForm from "./Components/SetupForm";
 import Loading from "./Components/Loading";
 import Modal from "./Components/Modal";
 
+
 import Countdown from "react-countdown";
 import CountDownTimer from "./Components/CountDownTimer";
 function App() {
@@ -17,6 +18,7 @@ function App() {
     isModalOpen,
     nextQuestion,
     checkAnswer,
+    resetTimer,
   } = useGlobalContext();
   if (waiting) {
     return <SetupForm />;
@@ -24,7 +26,7 @@ function App() {
   if (loading) {
     return <Loading />;
   }
-
+ 
   const { question, incorrect_answers, correct_answer } = questions[index];
 
   let answers = [...incorrect_answers];
@@ -45,6 +47,7 @@ function App() {
             onEnd={nextQuestion}
             modalOpen={isModalOpen}
             timeLimit={60}
+            reset={resetTimer}
           />
         </p>
         <article className='container'>

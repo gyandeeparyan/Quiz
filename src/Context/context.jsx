@@ -32,6 +32,7 @@ const AppProvider = ({ children }) => {
     difficulty: 'easy',
   })
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const [resetTimer, setResetTimer] = useState(false);
 
   const fetchQuestions = async (url) => {
     setLoading(true)
@@ -54,20 +55,25 @@ const AppProvider = ({ children }) => {
   }
 
   const nextQuestion = () => {
+    setResetTimer(!resetTimer);
     setIndex((oldIndex) => {
       const index = oldIndex + 1
       if (index > questions.length - 1) {
         openModal()
         return 0
       } else {
-        return index
+        
+        return  index
       }
     })
+    
   }
   const checkAnswer = (value) => {
+    setResetTimer(!resetTimer);
     if (value) {
       setCorrect((oldState) => oldState + 1)
     }
+    
     nextQuestion()
   }
 
@@ -108,6 +114,7 @@ const AppProvider = ({ children }) => {
         quiz,
         handleChange,
         handleSubmit,
+        resetTimer,
         
        
       }}
